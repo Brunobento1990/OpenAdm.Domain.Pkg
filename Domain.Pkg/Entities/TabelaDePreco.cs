@@ -24,6 +24,13 @@ public sealed class TabelaDePreco : BaseEntity
     public bool AtivaEcommerce { get; private set; }
     public List<ItensTabelaDePreco> ItensTabelaDePreco { get; set; } = new();
 
+    public void Update(string descricao, bool ativaEcommerce)
+    {
+        ValidationString.ValidateWithLength(descricao, message: CodigoErrors.DescricaoTabelaDePrecoInvalida);
+        Descricao = descricao;
+        AtivaEcommerce = ativaEcommerce;
+    }
+
     public decimal GetValorUnitarioByTamanhoId(Guid produtoId, Guid? tamanhoId)
     {
         var itemTabelaDePreco = ItensTabelaDePreco

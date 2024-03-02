@@ -171,21 +171,44 @@ public class PedidoPdfService
                             }
                         }
 
+                        table.Cell();
+                        table.Cell();
+                        table.Cell();
+                        table.Cell();
+                        table.Cell();
+
+                        table
+                            .Cell()
+                            .Element(CellTableStyle)
+                            .Text($"Total : {pedido.ValorTotal.ToString().Replace(".", ",")}")
+                            .FontSize(8);
+
+
                         var tamamhosItens = pedido
                             .ItensPedido
                             .OrderBy(x => x.Tamanho?.Numero)
+                            .Where(x => x.Tamanho != null)
                             .Select(x => x.Tamanho)
                             .ToList()
                             .GroupBy(x => x?.Id);
 
-                        table
-                            .Cell()
-                            .Element(CellStyleHeaderTable)
-                            .Text($"Quantidades")
-                            .FontSize(10);
+                        var pesosItens = pedido
+                            .ItensPedido
+                            .OrderBy(x => x.Peso?.Numero)
+                            .Where(x => x.Peso != null)
+                            .Select(x => x.Peso)
+                            .ToList()
+                            .GroupBy(x => x?.Id);
+
 
                         foreach (var tamanhoGroup in tamamhosItens)
                         {
+                            table
+                            .Cell()
+                            .Element(CellStyleHeaderTable)
+                            .Text($"Quantidades tamanhos")
+                            .FontSize(10);
+
                             table.Cell();
                             table.Cell();
                             table.Cell();
@@ -205,6 +228,41 @@ public class PedidoPdfService
                                 .Cell()
                                 .Element(CellTableStyle)
                                 .Text($"{itemPedido?.Tamanho?.Descricao} : {totalQuantidade.ToString().Replace(".", ",")}")
+                                .FontSize(8);
+                            table.Cell();
+                            table.Cell();
+                            table.Cell();
+                            table.Cell();
+                            table.Cell();
+                        }
+
+                        foreach (var pedoGroup in pesosItens)
+                        {
+                            table
+                            .Cell()
+                            .Element(CellStyleHeaderTable)
+                            .Text($"Quantidades pesos")
+                            .FontSize(10);
+
+                            table.Cell();
+                            table.Cell();
+                            table.Cell();
+                            table.Cell();
+                            table.Cell();
+                            var itemPedido = pedido
+                                .ItensPedido
+                                .FirstOrDefault(x => x.PesoId == pedoGroup.Key);
+
+                            var totalQuantidade = pedido
+                                .ItensPedido
+                                .Where(x => x.PesoId == pedoGroup.Key)
+                                .ToList()
+                                .Sum(x => x.Quantidade);
+
+                            table
+                                .Cell()
+                                .Element(CellTableStyle)
+                                .Text($"{itemPedido?.Peso?.Descricao} : {totalQuantidade.ToString().Replace(".", ",")}")
                                 .FontSize(8);
                         }
                     });

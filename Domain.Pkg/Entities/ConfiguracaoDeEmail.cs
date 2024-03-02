@@ -18,16 +18,32 @@ public sealed class ConfiguracaoDeEmail : BaseEntity
         bool ativo)
             : base(id, dataDeCriacao, dataDeAtualizacao, numero)
     {
-        ValidationEmail.ValidWithLength(email);
-        ValidationString.ValidateWithLength(servidor, message: CodigoErrors.ServidorInvalido);
-        ValidationString.ValidateWithLength(senha, message: CodigoErrors.SenhaInvalida);
-        ValidationInt.ValidateIntNullAndZero(porta, message: CodigoErrors.PortaInvalida);
-
         Email = email;
         Servidor = servidor;
         Senha = senha;
         Porta = porta;
         Ativo = ativo;
+
+        Validate();
+    }
+
+    private void Validate()
+    {
+        ValidationEmail.ValidWithLength(Email);
+        ValidationString.ValidateWithLength(Servidor, message: CodigoErrors.ServidorInvalido);
+        ValidationString.ValidateWithLength(Senha, message: CodigoErrors.SenhaInvalida);
+        ValidationInt.ValidateIntNullAndZero(Porta, message: CodigoErrors.PortaInvalida);
+    }
+
+    public void Update(string email, string servidor, string senha, int porta, bool ativo)
+    {
+        Email = email;
+        Servidor = servidor;
+        Senha = senha;
+        Porta = porta;
+        Ativo = ativo;
+
+        Validate();
     }
 
     public string Email { get; private set; }

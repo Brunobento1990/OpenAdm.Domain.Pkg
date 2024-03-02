@@ -8,6 +8,6 @@ public abstract class BaseItens : BaseEntity
         ProdutoId = produtoId;
     }
 
-    public Guid ProdutoId { get; private set; }
+    public Guid ProdutoId { get; protected set; }
     public Produto Produto { get; set; } = null!;
 }
