@@ -201,13 +201,24 @@ public class PedidoPdfService
                             .GroupBy(x => x?.Id);
 
 
-                        foreach (var tamanhoGroup in tamamhosItens)
+                        if (tamamhosItens.Any())
                         {
                             table
                             .Cell()
                             .Element(CellStyleHeaderTable)
-                            .Text($"Quantidades tamanhos")
+                            .Text($"Tamanhos")
                             .FontSize(10);
+                        }
+
+                        var count = 0;
+
+                        foreach (var tamanhoGroup in tamamhosItens)
+                        {
+
+                            if (count > 0)
+                            {
+                                table.Cell();
+                            }
 
                             table.Cell();
                             table.Cell();
@@ -234,15 +245,27 @@ public class PedidoPdfService
                             table.Cell();
                             table.Cell();
                             table.Cell();
+
+                            count++;
                         }
 
-                        foreach (var pedoGroup in pesosItens)
+                        if (pesosItens.Any())
                         {
                             table
                             .Cell()
                             .Element(CellStyleHeaderTable)
-                            .Text($"Quantidades pesos")
+                            .Text($"Pesos")
                             .FontSize(10);
+                        }
+
+                        count = 0;
+
+                        foreach (var pedoGroup in pesosItens)
+                        {
+                            if (count > 0)
+                            {
+                                table.Cell();
+                            }
 
                             table.Cell();
                             table.Cell();
@@ -264,6 +287,8 @@ public class PedidoPdfService
                                 .Element(CellTableStyle)
                                 .Text($"{itemPedido?.Peso?.Descricao} : {totalQuantidade.ToString().Replace(".", ",")}")
                                 .FontSize(8);
+
+                            count++;
                         }
                     });
                     page.FooterCustom();
