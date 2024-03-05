@@ -9,22 +9,25 @@ namespace Domain.Pkg.Entities;
 public class Categoria : BaseEntity
 {
     [JsonConstructor]
-    public Categoria(Guid id, DateTime dataDeCriacao, DateTime dataDeAtualizacao, long numero, string descricao, byte[]? foto)
+    public Categoria(Guid id, DateTime dataDeCriacao, DateTime dataDeAtualizacao, long numero, string descricao, string? foto, string? nomeFoto)
         : base(id, dataDeCriacao, dataDeAtualizacao, numero)
     {
         ValidationString.ValidateWithLength(descricao, message: CodigoErrors.CampoDescricaoNumeroMaximoDeCaracter);
         Descricao = descricao;
         Foto = foto;
+        NomeFoto = nomeFoto;
     }
 
-    public void Update(string descricao, string? foto)
+    public void Update(string descricao, string? foto, string? nomeFoto)
     {
         ValidationString.ValidateWithLength(descricao, message: CodigoErrors.CampoDescricaoNumeroMaximoDeCaracter);
         Descricao = descricao;
-        Foto = !string.IsNullOrWhiteSpace(foto) ? Encoding.UTF8.GetBytes(foto) : null;
+        NomeFoto = nomeFoto;
+        Foto = foto;
     }
 
     public string Descricao { get; private set; }
-    public byte[]? Foto { get; private set; }
+    public string? Foto { get; private set; }
+    public string? NomeFoto { get; private set; }
     public List<Produto> Produtos { get; set; } = new();
 }

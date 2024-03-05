@@ -19,7 +19,6 @@ public sealed class ItensPedido : BaseItens
         : base(id, dataDeCriacao, dataDeAtualizacao, numero, produtoId)
     {
         ValidationDecimal.ValidDecimalNullAndZero(quantidade);
-        ValidationDecimal.ValidDecimalNullAndZero(valorUnitario);
         ValidationGuid.ValidGuidNullAndEmpty(pedidoId);
         ValidationGuid.ValidGuidNullAndEmpty(produtoId);
 

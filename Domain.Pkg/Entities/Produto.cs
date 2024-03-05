@@ -13,9 +13,10 @@ public sealed class Produto : BaseEntity
         long numero,
         string descricao,
         string? especificacaoTecnica,
-        byte[] foto,
         Guid categoriaId,
-        string? referencia)
+        string? referencia,
+        string? urlFoto,
+        string? nomeFoto)
         : base(id, dataDeCriacao, dataDeAtualizacao, numero)
     {
         ValidationString.ValidateWithLength(descricao, message: CodigoErrors.CampoDescricaoNumeroMaximoDeCaracter);
@@ -24,14 +25,14 @@ public sealed class Produto : BaseEntity
 
         Descricao = descricao;
         EspecificacaoTecnica = especificacaoTecnica;
-        Foto = foto;
         CategoriaId = categoriaId;
         Referencia = referencia;
+        UrlFoto = urlFoto;
+        NomeFoto = nomeFoto;
     }
 
     public string Descricao { get; private set; }
     public string? EspecificacaoTecnica { get; private set; }
-    public byte[] Foto { get; set; }
     public List<Tamanho> Tamanhos { get; set; } = new();
     public List<Peso> Pesos { get; set; } = new();
     public Guid CategoriaId { get; private set; }
@@ -39,22 +40,26 @@ public sealed class Produto : BaseEntity
     public List<ItensPedido> ItensPedido { get; set; } = new();
     public List<ItensTabelaDePreco> ItensTabelaDePreco { get; set; } = new();
     public string? Referencia { get; private set; }
+    public string? UrlFoto { get; private set; }
+    public string? NomeFoto { get; private set; }
 
     public void Update(
         string descricao,
         string? especificacaoTecnica,
-        byte[] foto,
         Guid categoriaId,
-        string? referencia)
+        string? referencia,
+        string? urlFoto,
+        string? nomeFoto)
     {
         ValidationString.ValidateWithLength(descricao, message: CodigoErrors.CampoDescricaoNumeroMaximoDeCaracter);
         ValidationString.ValidateLength(especificacaoTecnica, 500, message: CodigoErrors.EspecificacaoTecnicaLimite);
         ValidationString.ValidateLength(referencia, message: CodigoErrors.CampoReferenciaLimite);
 
+        UrlFoto = urlFoto;
         Descricao = descricao;
         EspecificacaoTecnica = especificacaoTecnica;
-        Foto = foto;
         CategoriaId = categoriaId;
         Referencia = referencia;
+        NomeFoto = nomeFoto;
     }
 }

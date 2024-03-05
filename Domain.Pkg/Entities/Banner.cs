@@ -1,6 +1,5 @@
 ﻿using Domain.Pkg.Entities.Bases;
 using System.Text.Json.Serialization;
-using System.Text;
 
 namespace Domain.Pkg.Entities;
 
@@ -12,7 +11,7 @@ public sealed class Banner : BaseEntity
         DateTime dataDeCriacao,
         DateTime dataDeAtualizacao,
         long numero,
-        byte[] foto,
+        string foto,
         bool ativo)
         : base(id, dataDeCriacao, dataDeAtualizacao, numero)
     {
@@ -20,12 +19,12 @@ public sealed class Banner : BaseEntity
         Ativo = ativo;
     }
 
-    public byte[] Foto { get; private set; }
+    public string Foto { get; private set; }
     public bool Ativo { get; private set; }
 
     public void Update(string foto, bool? ativo)
     {
-        Foto = Encoding.UTF8.GetBytes(foto);
+        Foto = foto;
         Ativo = ativo != null ? ativo.Value : Ativo;
     }
 }
