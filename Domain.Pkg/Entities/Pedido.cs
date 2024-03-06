@@ -2,7 +2,6 @@
 using Domain.Pkg.Enum;
 using Domain.Pkg.Errors;
 using Domain.Pkg.Exceptions;
-using Domain.Pkg.Interfaces;
 using Domain.Pkg.Model;
 using Domain.Pkg.Validations;
 
@@ -40,16 +39,13 @@ public sealed class Pedido : BaseEntity
 
     public void ProcessarItensPedido(
         IList<PedidoPorPesoModel> pedidoPorPesoModels,
-        IList<PedidoPorTamanhoModel> pedidoPorTamanhoModels,
-        ICalcularValorUnitarioPedido calcularValorUnitarioPedido)
+        IList<PedidoPorTamanhoModel> pedidoPorTamanhoModels)
     {
         if (pedidoPorPesoModels.Count == 0 && pedidoPorTamanhoModels.Count == 0)
             throw new ExceptionApi(CodigoErrors.PedidoSemItens);
 
         foreach (var pedidoPorTamanhoModel in pedidoPorTamanhoModels)
         {
-            var valorUnitario = calcularValorUnitarioPedido
-                .GetValorUnitarioByTamanhoId(pedidoPorTamanhoModel.ProdutoId, pedidoPorTamanhoModel.TamanhoId);
 
             ItensPedido.Add(new ItensPedido(
                 id: Guid.NewGuid(),
@@ -60,15 +56,12 @@ public sealed class Pedido : BaseEntity
                 tamanhoId: pedidoPorTamanhoModel.TamanhoId,
                 produtoId: pedidoPorTamanhoModel.ProdutoId,
                 pedidoId: Id,
-                valorUnitario:
-                valorUnitario,
+                pedidoPorTamanhoModel.ValorUnitario,
                 quantidade: pedidoPorTamanhoModel.Quantidade));
         };
 
         foreach (var pedidoPorPesoModel in pedidoPorPesoModels)
         {
-            var valorUnitario = calcularValorUnitarioPedido
-                .GetValorUnitarioByPesoId(pedidoPorPesoModel.ProdutoId, pedidoPorPesoModel.PesoId);
 
             ItensPedido.Add(new ItensPedido(
                 id: Guid.NewGuid(),
@@ -79,8 +72,7 @@ public sealed class Pedido : BaseEntity
                 tamanhoId: null,
                 produtoId: pedidoPorPesoModel.ProdutoId,
                 pedidoId: Id,
-                valorUnitario:
-                valorUnitario,
+                pedidoPorPesoModel.ValorUnitario,
                 quantidade: pedidoPorPesoModel.Quantidade));
         };
     }

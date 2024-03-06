@@ -288,6 +288,12 @@ public class PedidoPdfService
                                 .Text($"{itemPedido?.Peso?.Descricao} : {totalQuantidade.ToString().Replace(".", ",")}")
                                 .FontSize(8);
 
+                            table.Cell();
+                            table.Cell();
+                            table.Cell();
+                            table.Cell();
+                            table.Cell();
+
                             count++;
                         }
                     });
