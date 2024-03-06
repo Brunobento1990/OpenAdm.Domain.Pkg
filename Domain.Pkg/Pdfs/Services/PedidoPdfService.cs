@@ -59,11 +59,22 @@ public class PedidoPdfService
                         text.Span(pedido.Usuario.Telefone).Style(titleStyleName);
                     });
 
-                    column.Item().Text(text =>
+                    if (!string.IsNullOrWhiteSpace(pedido.Usuario.Cnpj))
                     {
-                        text.Span("CNPJ: ").Style(titleStyle2);
-                        text.Span(pedido.Usuario.Cnpj).Style(titleStyleName);
-                    });
+                        column.Item().Text(text =>
+                        {
+                            text.Span("CNPJ: ").Style(titleStyle2);
+                            text.Span(pedido.Usuario.Cnpj).Style(titleStyleName);
+                        });
+                    }
+                    if (!string.IsNullOrWhiteSpace(pedido.Usuario.Cpf))
+                    {
+                        column.Item().Text(text =>
+                        {
+                            text.Span("CPF: ").Style(titleStyle2);
+                            text.Span(pedido.Usuario.Cpf).Style(titleStyleName);
+                        });
+                    }
                     column.Item().PaddingTop(10).Text(text =>
                     {
                         text.Span("Número: ").Style(titleStyle2);
