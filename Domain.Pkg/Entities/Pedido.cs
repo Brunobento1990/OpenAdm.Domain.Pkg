@@ -2,6 +2,7 @@
 using Domain.Pkg.Enum;
 using Domain.Pkg.Errors;
 using Domain.Pkg.Exceptions;
+using Domain.Pkg.Interfaces;
 using Domain.Pkg.Model;
 using Domain.Pkg.Validations;
 
@@ -40,17 +41,14 @@ public sealed class Pedido : BaseEntity
     public void ProcessarItensPedido(
         IList<PedidoPorPesoModel> pedidoPorPesoModels,
         IList<PedidoPorTamanhoModel> pedidoPorTamanhoModels,
-        TabelaDePreco tabelaDePreco)
+        ICalcularValorUnitarioPedido calcularValorUnitarioPedido)
     {
         if (pedidoPorPesoModels.Count == 0 && pedidoPorTamanhoModels.Count == 0)
             throw new ExceptionApi(CodigoErrors.PedidoSemItens);
 
-        if (tabelaDePreco == null || tabelaDePreco.ItensTabelaDePreco.Count == 0)
-            throw new Exception(CodigoErrors.PedidoSemItens);
-
         foreach (var pedidoPorTamanhoModel in pedidoPorTamanhoModels)
         {
-            var valorUnitario = tabelaDePreco
+            var valorUnitario = calcularValorUnitarioPedido
                 .GetValorUnitarioByTamanhoId(pedidoPorTamanhoModel.ProdutoId, pedidoPorTamanhoModel.TamanhoId);
 
             ItensPedido.Add(new ItensPedido(
@@ -69,7 +67,7 @@ public sealed class Pedido : BaseEntity
 
         foreach (var pedidoPorPesoModel in pedidoPorPesoModels)
         {
-            var valorUnitario = tabelaDePreco
+            var valorUnitario = calcularValorUnitarioPedido
                 .GetValorUnitarioByPesoId(pedidoPorPesoModel.ProdutoId, pedidoPorPesoModel.PesoId);
 
             ItensPedido.Add(new ItensPedido(
