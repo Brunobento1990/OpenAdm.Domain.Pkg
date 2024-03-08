@@ -11,13 +11,22 @@ public class MovimentacaoDeProduto : BaseEntity
         DateTime dataDeAtualizacao,
         long numero,
         decimal quantidadeMovimentada,
-        TipoMovimentacaoDeProduto tipoMovimentacaoDeProduto)
+        TipoMovimentacaoDeProduto tipoMovimentacaoDeProduto,
+        Guid produtoId,
+        Guid? tamanhoId,
+        Guid? pesoId)
         : base(id, dataDeCriacao, dataDeAtualizacao, numero)
     {
         QuantidadeMovimentada = quantidadeMovimentada;
         TipoMovimentacaoDeProduto = tipoMovimentacaoDeProduto;
+        ProdutoId = produtoId;
+        TamanhoId = tamanhoId;
+        PesoId = pesoId;
     }
 
     public decimal QuantidadeMovimentada { get; private set; }
     public TipoMovimentacaoDeProduto TipoMovimentacaoDeProduto { get; private set; }
+    public Guid ProdutoId { get; private set; }
+    public Guid? TamanhoId { get; private set; }
+    public Guid? PesoId { get; private set; }
 }
