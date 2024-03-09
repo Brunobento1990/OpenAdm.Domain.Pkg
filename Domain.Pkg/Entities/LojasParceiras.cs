@@ -9,6 +9,7 @@ public sealed class LojasParceiras : BaseEntity
         DateTime dataDeCriacao,
         DateTime dataDeAtualizacao,
         long numero,
+        string nome,
         string? nomeFoto,
         string? foto,
         string? instagram,
@@ -23,12 +24,25 @@ public sealed class LojasParceiras : BaseEntity
         Facebook = facebook;
         Endereco = endereco;
         Contato = contato;
+        Nome = nome;
     }
 
-    public string? NomeFoto { get; set; }
-    public string? Foto { get; set; }
-    public string? Instagram { get; set; }
-    public string? Facebook { get; set; }
-    public string? Endereco { get; set; }
-    public string? Contato { get; set; }
+    public string? NomeFoto { get; private set; }
+    public string Nome { get; private set; }
+    public string? Foto { get; private set; }
+    public string? Instagram { get; private set; }
+    public string? Facebook { get; private set; }   
+    public string? Endereco { get; private set; }   
+    public string? Contato { get; private set; }
+
+    public void Update(string nome, string? nomeFoto, string? foto, string? instagram, string? facebook, string? endereco, string? contato)
+    {
+        Nome = nome;
+        NomeFoto = nomeFoto;
+        Foto = foto;
+        Instagram = instagram;
+        Facebook = facebook;
+        Endereco = endereco;
+        Contato = contato;
+    }
 }
