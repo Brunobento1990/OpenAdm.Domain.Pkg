@@ -30,7 +30,7 @@ public class EmailService : IEmailService
             {
                 EnableSsl = true,
                 UseDefaultCredentials = false,
-                Credentials = new NetworkCredential(fromEnvioEmailModel.Email, CryptographyGeneric.Decrypt(fromEnvioEmailModel.Senha))
+                Credentials = new NetworkCredential(fromEnvioEmailModel.Email, fromEnvioEmailModel.Senha)
             };
             await smtp.SendMailAsync(mail);
 
