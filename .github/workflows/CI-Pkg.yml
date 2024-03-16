@@ -1,0 +1,33 @@
+name: dotnet package
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '8.0.x'
+      - name: Install dependencies
+        run: dotnet restore
+      - name: Build
+        run: dotnet build --configuration Release
+      - name: Create pkg
+        run: dotnet pack -p:PackageVersion=1.0.21
+        working-directory: ./Domain.Pkg
+      - name: Archive Nuget
+        uses: actions/upload-artifact@v3
+        with:
+          name: pkg
+          path: "**/*.nupkg"
+      - name: Publish Nuget
+        run: dotnet nuget push **/*.nupkg --api-key ${{ secrets.API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
+          
+      
