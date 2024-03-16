@@ -1,5 +1,4 @@
 ﻿using Domain.Pkg.Cryptography;
-using Domain.Pkg.Entities;
 using Domain.Pkg.Interfaces;
 using Domain.Pkg.Model;
 using System.Net.Mail;
@@ -9,11 +8,11 @@ namespace Domain.Pkg.Services;
 
 public class EmailService : IEmailService
 {
-    public async Task<bool> SendEmail(EnvioEmailModel envioEmailModel, ConfiguracaoDeEmail configuracaoDeEmail)
+    public async Task<bool> SendEmail(ToEnvioEmailModel envioEmailModel, FromEnvioEmailModel fromEnvioEmailModel)
     {
         try
         {
-            var mail = new MailMessage(configuracaoDeEmail.Email, configuracaoDeEmail.Email)
+            var mail = new MailMessage(fromEnvioEmailModel.Email, envioEmailModel.Email)
             {
                 Subject = envioEmailModel.Assunto,
                 SubjectEncoding = System.Text.Encoding.GetEncoding("UTF-8"),
@@ -27,11 +26,11 @@ public class EmailService : IEmailService
                 mail.Attachments.Add(anexo);
             }
 
-            var smtp = new SmtpClient(configuracaoDeEmail.Servidor, configuracaoDeEmail.Porta)
+            var smtp = new SmtpClient(fromEnvioEmailModel.Servidor, fromEnvioEmailModel.Porta)
             {
                 EnableSsl = true,
                 UseDefaultCredentials = false,
-                Credentials = new NetworkCredential(configuracaoDeEmail.Email, CryptographyGeneric.Decrypt(configuracaoDeEmail.Senha))
+                Credentials = new NetworkCredential(fromEnvioEmailModel.Email, CryptographyGeneric.Decrypt(fromEnvioEmailModel.Senha))
             };
             await smtp.SendMailAsync(mail);
 

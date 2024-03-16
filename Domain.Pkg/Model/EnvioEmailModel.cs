@@ -1,6 +1,6 @@
 ﻿namespace Domain.Pkg.Model;
 
-public class EnvioEmailModel
+public class ToEnvioEmailModel
 {
     public string Email { get; set; } = string.Empty;
     public string Mensagem { get; set; } = string.Empty;
