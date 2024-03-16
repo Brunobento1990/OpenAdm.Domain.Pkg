@@ -20,7 +20,7 @@ jobs:
       - name: Build
         run: dotnet build --configuration Release
       - name: Create pkg
-        run: dotnet pack ./Domain.Pkg -p:PackageVersion=1.0.45
+        run: dotnet pack Domain.Pkg -p:PackageVersion=1.0.45
         working-directory: ./Domain.Pkg
       - name: Archive Nuget
         uses: actions/upload-artifact@v3
