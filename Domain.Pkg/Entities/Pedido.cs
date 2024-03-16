@@ -37,43 +37,24 @@ public sealed class Pedido : BaseEntity
         StatusPedido = statusPedido;
     }
 
-    public void ProcessarItensPedido(
-        IList<PedidoPorPesoModel> pedidoPorPesoModels,
-        IList<PedidoPorTamanhoModel> pedidoPorTamanhoModels)
+    public void ProcessarItensPedido(IList<ItensPedidoModel> itensPedidoModels)
     {
-        if (pedidoPorPesoModels.Count == 0 && pedidoPorTamanhoModels.Count == 0)
+        if (itensPedidoModels.Count == 0)
             throw new ExceptionApi(CodigoErrors.PedidoSemItens);
 
-        foreach (var pedidoPorTamanhoModel in pedidoPorTamanhoModels)
-        {
-
-            ItensPedido.Add(new ItensPedido(
-                id: Guid.NewGuid(),
-                dataDeCriacao: DataDeCriacao,
-                dataDeAtualizacao: DataDeAtualizacao,
-                numero: 0,
-                pesoId: null,
-                tamanhoId: pedidoPorTamanhoModel.TamanhoId,
-                produtoId: pedidoPorTamanhoModel.ProdutoId,
-                pedidoId: Id,
-                pedidoPorTamanhoModel.ValorUnitario,
-                quantidade: pedidoPorTamanhoModel.Quantidade));
-        };
-
-        foreach (var pedidoPorPesoModel in pedidoPorPesoModels)
-        {
-
-            ItensPedido.Add(new ItensPedido(
-                id: Guid.NewGuid(),
-                dataDeCriacao: DataDeCriacao,
-                dataDeAtualizacao: DataDeAtualizacao,
-                numero: 0,
-                pesoId: pedidoPorPesoModel.PesoId,
-                tamanhoId: null,
-                produtoId: pedidoPorPesoModel.ProdutoId,
-                pedidoId: Id,
-                pedidoPorPesoModel.ValorUnitario,
-                quantidade: pedidoPorPesoModel.Quantidade));
-        };
+        ItensPedido = itensPedidoModels
+            .Select(x => 
+                new ItensPedido(
+                    Guid.NewGuid(),
+                    DataDeCriacao,
+                    DataDeAtualizacao,
+                    0,
+                    x.PesoId,
+                    x.TamanhoId,
+                    x.ProdutoId,
+                    Id,
+                    x.ValorUnitario,
+                    x.Quantidade))
+            .ToList();  
     }
 }
