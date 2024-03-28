@@ -5,5 +5,6 @@ public enum StatusPedido
     Aberto,
     Faturado,
     RotaDeEntrega,
-    Entregue
+    Entregue,
+    Cancelado
 }
