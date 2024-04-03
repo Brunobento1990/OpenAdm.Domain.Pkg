@@ -13,12 +13,12 @@ public static class RelatorioPedidoService
         "#N.",
         "Data",
         "Cliente",
-        "Quantidade",
+        "Quantidade itens",
         "Total"
     };
     private static readonly IList<int> _colunsWidt = new List<int>()
     {
-        60,70,150,70,90
+        60,90,170,90,90
     };
 
     public static byte[] GeneratePdf(RelatorioPedidoModel relatorioPedidoModel)
@@ -26,8 +26,7 @@ public static class RelatorioPedidoService
         void HeaderCustom(IContainer container)
         {
             var titleStyle = TextStyle.Default.FontSize(18).SemiBold();
-            var titleStyle2 = TextStyle.Default.FontSize(10).SemiBold();
-            var titleStyleName = TextStyle.Default.FontSize(10);
+            var titleStyle2 = TextStyle.Default.FontSize(8).SemiBold();
 
             container.Row(row =>
             {
