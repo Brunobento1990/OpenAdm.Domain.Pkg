@@ -10,7 +10,7 @@ public static class RelatorioPedidoService
 {
     private static readonly IList<string> _colunsName = new List<string>()
     {
-        "#N.",
+        "N.",
         "Data",
         "Cliente",
         "Quantidade itens",
@@ -26,7 +26,7 @@ public static class RelatorioPedidoService
         void HeaderCustom(IContainer container)
         {
             var titleStyle = TextStyle.Default.FontSize(18).SemiBold();
-            var titleStyle2 = TextStyle.Default.FontSize(8).SemiBold();
+            var titleStyle2 = TextStyle.Default.FontSize(10).SemiBold();
 
             container.Row(row =>
             {
@@ -37,13 +37,13 @@ public static class RelatorioPedidoService
 
                     column.Item().Text(text =>
                     {
-                        text.Span("Data de inicial: ").SemiBold().FontSize(14);
+                        text.Span("Data de inicial: ").SemiBold().FontSize(10);
                         text.Span(relatorioPedidoModel.DataInicial.DateTimeToString());
                     });
 
                     column.Item().Text(text =>
                     {
-                        text.Span("Data de final: ").SemiBold().FontSize(14);
+                        text.Span("Data de final: ").SemiBold().FontSize(10);
                         text.Span(relatorioPedidoModel.DataFinal.DateTimeToString());
                     });
                 });
@@ -107,7 +107,7 @@ public static class RelatorioPedidoService
                             table
                             .Cell()
                             .Element(CellTableStyle)
-                            .Text(item.Numero.ToString())
+                            .Text($"#{item.Numero}")
                             .FontSize(8);
 
                             table

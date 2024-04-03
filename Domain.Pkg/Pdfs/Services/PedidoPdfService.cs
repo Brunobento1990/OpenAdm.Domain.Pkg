@@ -1,4 +1,5 @@
 ﻿using Domain.Pkg.Entities;
+using Domain.Pkg.Extensions;
 using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
@@ -8,18 +9,18 @@ namespace Domain.Pkg.Pdfs.Services;
 public class PedidoPdfService
 {
     private static readonly IList<string> _colunsName = new List<string>()
-        {
-            "REF",
-            "Descrição",
-            "Tamanho/Peso",
-            "Quantidade",
-            "Valor unitário",
-            "Total"
-        };
+    {
+        "REF",
+        "Descrição",
+        "Tamanho/Peso",
+        "Quantidade",
+        "Valor unitário",
+        "Total"
+    };
     private static readonly IList<int> _colunsWidt = new List<int>()
-        {
-            60,150,80,70,90,50
-        };
+    {
+        60,150,80,70,90,50
+    };
 
     public static byte[] GeneratePdfAsync(Pedido pedido, string? logo = null)
     {
@@ -38,7 +39,7 @@ public class PedidoPdfService
                     column.Item().Text(text =>
                     {
                         text.Span("Data de emissão: ").SemiBold().FontSize(14);
-                        text.Span(pedido.DataDeCriacao.ToString("dd/MM/yyyy"));
+                        text.Span(pedido.DataDeCriacao.DateTimeToString());
                     });
 
                     column.Item().PaddingTop(10).Text(text =>
@@ -165,19 +166,19 @@ public class PedidoPdfService
                                 table
                                 .Cell()
                                 .Element(CellTableStyle)
-                                .Text(item.Quantidade.ToString().Replace(".", ","))
+                                .Text(item.Quantidade.FormatMoney())
                                 .FontSize(8);
 
                                 table
                                 .Cell()
                                 .Element(CellTableStyle)
-                                .Text(item.ValorUnitario.ToString().Replace(".", ","))
+                                .Text(item.ValorUnitario.FormatMoney())
                                 .FontSize(8);
 
                                 table
                                 .Cell()
                                 .Element(CellTableStyle)
-                                .Text(item.ValorTotal.ToString().Replace(".", ","))
+                                .Text(item.ValorTotal.FormatMoney())
                                 .FontSize(8);
                             }
                         }
@@ -191,7 +192,7 @@ public class PedidoPdfService
                         table
                             .Cell()
                             .Element(CellTableStyle)
-                            .Text($"Total : {pedido.ValorTotal.ToString().Replace(".", ",")}")
+                            .Text($"Total : {pedido.ValorTotal.FormatMoney()}")
                             .FontSize(8);
 
 
@@ -249,7 +250,7 @@ public class PedidoPdfService
                             table
                                 .Cell()
                                 .Element(CellTableStyle)
-                                .Text($"{itemPedido?.Tamanho?.Descricao} : {totalQuantidade.ToString().Replace(".", ",")}")
+                                .Text($"{itemPedido?.Tamanho?.Descricao} : {totalQuantidade.FormatMoney()}")
                                 .FontSize(8);
                             table.Cell();
                             table.Cell();
@@ -296,7 +297,7 @@ public class PedidoPdfService
                             table
                                 .Cell()
                                 .Element(CellTableStyle)
-                                .Text($"{itemPedido?.Peso?.Descricao} : {totalQuantidade.ToString().Replace(".", ",")}")
+                                .Text($"{itemPedido?.Peso?.Descricao} : {totalQuantidade.FormatMoney()}")
                                 .FontSize(8);
 
                             table.Cell();
