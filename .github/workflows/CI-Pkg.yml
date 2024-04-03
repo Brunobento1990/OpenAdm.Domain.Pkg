@@ -1,4 +1,4 @@
-name: dotnet package
+name: dotnet package publish
 
 on:
   push:
@@ -16,11 +16,13 @@ jobs:
         with:
           dotnet-version: '8.0.x'
       - name: Install dependencies
-        run: dotnet restore
+        run: dotnet restore ./Domain.Pkg
       - name: Build
-        run: dotnet build --configuration Release
+        run: dotnet build ./Domain.Pkg --configuration Release
+      - name: Test
+        run: dotnet test ./Domain.Test
       - name: Create pkg
-        run: dotnet pack Domain.Pkg.csproj -p:PackageVersion=1.0.50
+        run: dotnet pack Domain.Pkg.csproj -p:PackageVersion=${{ steps.semantic.outputs.new_release_version }}
         working-directory: ./Domain.Pkg
       - name: Archive Nuget
         uses: actions/upload-artifact@v3
