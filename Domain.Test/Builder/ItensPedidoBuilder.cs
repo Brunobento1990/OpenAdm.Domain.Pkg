@@ -8,8 +8,8 @@ public class ItensPedidoBuilder
     private readonly DateTime _created;
     private readonly DateTime _update;
     private readonly long _numero;
-    private Guid? _pesoId;
-    private Guid? _tamanhoId;
+    private readonly Guid? _pesoId;
+    private readonly Guid? _tamanhoId;
     private Guid _produtoId;
     private Guid _pedidoId;
     private decimal _quantidade;
