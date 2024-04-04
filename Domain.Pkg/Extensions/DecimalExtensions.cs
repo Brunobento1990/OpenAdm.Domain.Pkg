@@ -7,11 +7,11 @@ public static class DecimalExtensions
         var newValue = value.ToString().Split(".");
         if (newValue?.Length > 0)
         {
-            var numero = newValue[0]?.Length > 0 ? newValue[0] : "0";
-            string? decimals;
-            if (newValue[1]?.Length > 0)
+            var numero = newValue.ElementAtOrDefault(0)?.Length > 0 ? newValue.ElementAtOrDefault(0) : "0";
+            var decimals = newValue.ElementAtOrDefault(1);
+            if (!string.IsNullOrWhiteSpace(decimals))
             {
-                decimals = newValue[1]?.Length > 2 ? newValue[1]?[..2] : $"{newValue[1]}0";
+                decimals = decimals.Length > 2 ? decimals[..1] : $"{decimals}0";
             }
             else
             {

@@ -22,7 +22,7 @@ jobs:
       - name: Test
         run: dotnet test ./Domain.Test
       - name: Create pkg
-        run: dotnet pack Domain.Pkg.csproj -p:PackageVersion=1.0.55
+        run: dotnet pack Domain.Pkg.csproj -p:PackageVersion=1.0.56
         working-directory: ./Domain.Pkg
       - name: Archive Nuget
         uses: actions/upload-artifact@v3
