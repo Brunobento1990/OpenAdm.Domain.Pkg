@@ -29,6 +29,12 @@ public sealed class ItensPedido : BaseItens
         Quantidade = quantidade;
     }
 
+    public void EditarQuantidade(decimal quantidade)
+    {
+        ValidationDecimal.ValidDecimalNullAndZero(quantidade);
+        Quantidade = quantidade;
+    }
+
     public Guid? PesoId { get; private set; }
     public Peso? Peso { get; set; }
     public Guid? TamanhoId { get; private set; }
