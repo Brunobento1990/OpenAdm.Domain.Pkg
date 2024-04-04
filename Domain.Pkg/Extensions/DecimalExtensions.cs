@@ -11,7 +11,10 @@ public static class DecimalExtensions
             var decimals = newValue.ElementAtOrDefault(1);
             if (!string.IsNullOrWhiteSpace(decimals))
             {
-                decimals = decimals.Length > 2 ? decimals[..1] : $"{decimals}0";
+                if (decimals.Length != 2)
+                {
+                    decimals = decimals.Length > 2 ? decimals[..2] : $"{decimals}0";
+                }
             }
             else
             {
