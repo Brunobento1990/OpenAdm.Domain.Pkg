@@ -65,7 +65,7 @@ public class PedidoPdfService
                         column.Item().Text(text =>
                         {
                             text.Span("CNPJ: ").Style(titleStyle2);
-                            text.Span(Convert.ToUInt64(pedido.Usuario.Cnpj).ToString(@"00\.000\.000\/0000\-00")).Style(titleStyleName);
+                            text.Span(pedido.Usuario.Cnpj.FormatCnpj()).Style(titleStyleName);
                         });
                     }
                     if (!string.IsNullOrWhiteSpace(pedido.Usuario.Cpf))
@@ -73,7 +73,7 @@ public class PedidoPdfService
                         column.Item().Text(text =>
                         {
                             text.Span("CPF: ").Style(titleStyle2);
-                            text.Span(Convert.ToUInt64(pedido.Usuario.Cpf).ToString(@"000\.000\.000\-00")).Style(titleStyleName);
+                            text.Span(pedido.Usuario.Cpf.FormatCpf()).Style(titleStyleName);
                         });
                     }
                     column.Item().PaddingTop(10).Text(text =>
