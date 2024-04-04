@@ -16,7 +16,8 @@ public sealed class Usuario : BaseEntity
         string nome,
         string? telefone,
         string? cnpj,
-        string? cpf)
+        string? cpf,
+        bool ativo)
             : base(id, dataDeCriacao, dataDeAtualizacao, numero)
     {
         ValidationEmail.ValidWithLength(email);
@@ -29,6 +30,7 @@ public sealed class Usuario : BaseEntity
         Telefone = telefone;
         Cnpj = cnpj;
         Cpf = cpf;
+        Ativo = ativo;
     }
 
     public string Email { get; private set; }
@@ -37,6 +39,13 @@ public sealed class Usuario : BaseEntity
     public string? Telefone { get; private set; }
     public string? Cnpj { get; private set; }
     public string? Cpf { get; private set; }
+    public bool Ativo {  get; private set; }
+    public bool IsAtacado => !string.IsNullOrWhiteSpace(Cnpj);
+
+    public void Inativar()
+    {
+        Ativo = false;
+    }
 
     public void UpdateSenha(string senha)
     {
