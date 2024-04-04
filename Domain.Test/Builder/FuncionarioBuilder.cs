@@ -62,6 +62,6 @@ public class FuncionarioBuilder
 
     public Funcionario Build()
     {
-        return new(_id, _created, _update, _numero, _email, _senha, _nome, _telefone, _avatar);
+        return new(_id, _created, _update, _numero, _email, _senha, _nome, _telefone, _avatar, true);
     }
 }

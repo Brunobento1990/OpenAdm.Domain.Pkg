@@ -58,6 +58,6 @@ public class UsuarioBuilder
 
     public Usuario Build()
     {
-        return new Usuario(_id, _created, _update, _numero, _email, _senha, _nome, _telefone, _cnpj, _cpf);
+        return new Usuario(_id, _created, _update, _numero, _email, _senha, _nome, _telefone, _cnpj, _cpf, true);
     }
 }
