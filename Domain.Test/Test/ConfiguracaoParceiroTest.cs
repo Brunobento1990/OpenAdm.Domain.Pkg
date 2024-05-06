@@ -27,7 +27,8 @@ public class ConfiguracaoParceiroTest
             dto.DominioSiteAdm,
             dto.DominioSiteEcommerce,
             dto.Ativo,
-            dto.ParceiroId);
+            dto.ParceiroId,
+            null);
 
         Assert.Equal(dto.ConexaoDb, configuracao.ConexaoDb);
         Assert.Equal(dto.DominioSiteAdm, configuracao.DominioSiteAdm);
