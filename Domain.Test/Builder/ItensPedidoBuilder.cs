@@ -24,7 +24,7 @@ public class ItensPedidoBuilder
 
         _pesoId = null;
         _tamanhoId = null;
-
+        _numero = 1;
         _produtoId = Guid.NewGuid();
         _pedidoId = Guid.NewGuid();
         _quantidade = faker.Random.Decimal(1, 100);
