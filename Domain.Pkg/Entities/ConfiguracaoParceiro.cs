@@ -16,7 +16,7 @@ public sealed class ConfiguracaoParceiro : BaseEntity
         bool ativo,
         Guid parceiroId,
         string? clienteMercadoPago,
-        string? xApi)
+        Guid xApi)
         : base(id, dataDeCriacao, dataDeAtualizacao, numero)
     {
         ValidationString.Validate(conexaoDb);
@@ -36,7 +36,7 @@ public sealed class ConfiguracaoParceiro : BaseEntity
     public string DominioSiteAdm { get; private set; }
     public string DominioSiteEcommerce { get; private set; }
     public string? ClienteMercadoPago { get; private set; }
-    public string? XApi { get; private set; }
+    public Guid XApi { get; private set; }
     public bool Ativo { get; private set; }
     public Guid ParceiroId { get; private set; }
     public Parceiro Parceiro { get; set; } = null!;

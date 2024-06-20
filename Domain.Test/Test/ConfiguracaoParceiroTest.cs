@@ -29,7 +29,7 @@ public class ConfiguracaoParceiroTest
             dto.Ativo,
             dto.ParceiroId,
             null,
-            null);
+            Guid.NewGuid());
 
         Assert.Equal(dto.ConexaoDb, configuracao.ConexaoDb);
         Assert.Equal(dto.DominioSiteAdm, configuracao.DominioSiteAdm);
