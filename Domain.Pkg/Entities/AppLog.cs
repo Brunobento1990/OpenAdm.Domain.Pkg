@@ -18,7 +18,7 @@ public sealed class AppLog : BaseEntity
         string? erro,
         int statusCode,
         int logLevel,
-        string? xApi) : base(id, dataDeCriacao, dataDeAtualizacao, numero)
+        Guid xApi) : base(id, dataDeCriacao, dataDeAtualizacao, numero)
     {
         Origem = origem;
         Latitude = latitude;
@@ -41,5 +41,5 @@ public sealed class AppLog : BaseEntity
     public string? Erro { get; private set; }
     public int StatusCode { get; private set; }
     public int LogLevel { get; private set; }
-    public string? XApi { get; private set; }
+    public Guid XApi { get; private set; }
 }
