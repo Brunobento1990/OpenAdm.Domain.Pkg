@@ -28,8 +28,7 @@ public class ConfiguracaoParceiroTest
             dto.DominioSiteEcommerce,
             dto.Ativo,
             dto.ParceiroId,
-            null,
-            Guid.NewGuid());
+            null);
 
         Assert.Equal(dto.ConexaoDb, configuracao.ConexaoDb);
         Assert.Equal(dto.DominioSiteAdm, configuracao.DominioSiteAdm);
