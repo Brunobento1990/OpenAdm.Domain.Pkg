@@ -16,7 +16,8 @@ public sealed class Produto : BaseEntity
         Guid categoriaId,
         string? referencia,
         string? urlFoto,
-        string? nomeFoto)
+        string? nomeFoto,
+        decimal? peso)
         : base(id, dataDeCriacao, dataDeAtualizacao, numero)
     {
         ValidationString.ValidateWithLength(descricao, message: CodigoErrors.CampoDescricaoNumeroMaximoDeCaracter);
@@ -29,6 +30,7 @@ public sealed class Produto : BaseEntity
         Referencia = referencia;
         UrlFoto = urlFoto;
         NomeFoto = nomeFoto;
+        Peso = peso;
     }
 
     public string Descricao { get; private set; }
@@ -42,6 +44,7 @@ public sealed class Produto : BaseEntity
     public string? Referencia { get; private set; }
     public string? UrlFoto { get; private set; }
     public string? NomeFoto { get; private set; }
+    public decimal? Peso { get; private set; }
 
     public void Update(
         string descricao,
@@ -49,12 +52,14 @@ public sealed class Produto : BaseEntity
         Guid categoriaId,
         string? referencia,
         string? urlFoto,
-        string? nomeFoto)
+        string? nomeFoto,
+        decimal? peso)
     {
         ValidationString.ValidateWithLength(descricao, message: CodigoErrors.CampoDescricaoNumeroMaximoDeCaracter);
         ValidationString.ValidateLength(especificacaoTecnica, 500, message: CodigoErrors.EspecificacaoTecnicaLimite);
         ValidationString.ValidateLength(referencia, message: CodigoErrors.CampoReferenciaLimite);
 
+        Peso = peso;
         UrlFoto = urlFoto;
         Descricao = descricao;
         EspecificacaoTecnica = especificacaoTecnica;
