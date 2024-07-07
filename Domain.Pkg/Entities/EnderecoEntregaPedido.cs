@@ -17,7 +17,8 @@ public sealed class EnderecoEntregaPedido : BaseEntity
         string localidade,
         string uf,
         string numeroEntrega,
-        Guid pedidoId)
+        Guid pedidoId,
+        string tipoFrete)
             : base(id, dataDeCriacao, dataDeAtualizacao, numero)
     {
         Cep = cep;
@@ -29,6 +30,7 @@ public sealed class EnderecoEntregaPedido : BaseEntity
         Uf = uf;
         NumeroEntrega = numeroEntrega;
         PedidoId = pedidoId;
+        TipoFrete = tipoFrete;
     }
 
     public string Cep { get; private set; }
@@ -40,4 +42,5 @@ public sealed class EnderecoEntregaPedido : BaseEntity
     public string Bairro { get; private set; }
     public string Localidade { get; private set; }
     public string Uf { get; private set; }
+    public string TipoFrete { get; private set; }
 }
