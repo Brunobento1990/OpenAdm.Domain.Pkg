@@ -42,6 +42,12 @@ public class PedidoPdfService
 
                     column.Item().Text(text =>
                     {
+                        text.Span("Pedido número: ").Style(titleStyle2);
+                        text.Span(pedido.Numero.ToString()).Style(titleStyleName);
+                    });
+
+                    column.Item().Text(text =>
+                    {
                         text.Span("Data de emissão: ").SemiBold().FontSize(14);
                         text.Span(pedido.DataDeCriacao.DateTimeToString());
                     });
@@ -80,17 +86,12 @@ public class PedidoPdfService
                             text.Span(pedido.Usuario.Cpf.FormatCpf()).Style(titleStyleName);
                         });
                     }
-                    column.Item().PaddingTop(10).Text(text =>
-                    {
-                        text.Span("Número: ").Style(titleStyle2);
-                        text.Span(pedido.Numero.ToString()).Style(titleStyleName);
-                    });
 
                     if (enderecoEntregaPedido != null)
                     {
-                        column.Item().PaddingTop(20).Text(text =>
+                        column.Item().PaddingTop(10).Text(text =>
                         {
-                            text.Span("Frete R$: ").Style(titleStyle2);
+                            text.Span("Valor do frete R$: ").Style(titleStyle2);
                             text.Span(enderecoEntregaPedido.Frete.FormatMoney()).Style(titleStyleName);
                         });
 
@@ -98,12 +99,6 @@ public class PedidoPdfService
                         {
                             text.Span("CEP: ").Style(titleStyle2);
                             text.Span(enderecoEntregaPedido.Cep).Style(titleStyleName);
-                        });
-
-                        column.Item().Text(text =>
-                        {
-                            text.Span("Frete R$: ").Style(titleStyle2);
-                            text.Span(enderecoEntregaPedido.Frete.FormatMoney()).Style(titleStyleName);
                         });
 
                         column.Item().Text(text =>
