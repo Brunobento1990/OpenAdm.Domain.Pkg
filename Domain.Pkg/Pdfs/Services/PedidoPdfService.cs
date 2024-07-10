@@ -22,7 +22,11 @@ public class PedidoPdfService
         60,150,80,70,90,50
     };
 
-    public static byte[] GeneratePdfAsync(Pedido pedido, string? logo = null)
+    public static byte[] GeneratePdfAsync(
+        Pedido pedido,
+        EnderecoEntregaPedido?
+        enderecoEntregaPedido,
+        string? logo = null)
     {
         void HeaderCustom(IContainer container)
         {
@@ -81,6 +85,60 @@ public class PedidoPdfService
                         text.Span("Número: ").Style(titleStyle2);
                         text.Span(pedido.Numero.ToString()).Style(titleStyleName);
                     });
+
+                    if (enderecoEntregaPedido != null)
+                    {
+                        column.Item().PaddingTop(20).Text(text =>
+                        {
+                            text.Span("Frete R$: ").Style(titleStyle2);
+                            text.Span(enderecoEntregaPedido.Frete.FormatMoney()).Style(titleStyleName);
+                        });
+
+                        column.Item().Text(text =>
+                        {
+                            text.Span("CEP: ").Style(titleStyle2);
+                            text.Span(enderecoEntregaPedido.Cep).Style(titleStyleName);
+                        });
+
+                        column.Item().Text(text =>
+                        {
+                            text.Span("Frete R$: ").Style(titleStyle2);
+                            text.Span(enderecoEntregaPedido.Frete.FormatMoney()).Style(titleStyleName);
+                        });
+
+                        column.Item().Text(text =>
+                        {
+                            text.Span("UF: ").Style(titleStyle2);
+                            text.Span(enderecoEntregaPedido.Uf).Style(titleStyleName);
+                        });
+
+                        column.Item().Text(text =>
+                        {
+                            text.Span("Cidade: ").Style(titleStyle2);
+                            text.Span(enderecoEntregaPedido.Localidade).Style(titleStyleName);
+                        });
+
+                        column.Item().Text(text =>
+                        {
+                            text.Span("Bairro: ").Style(titleStyle2);
+                            text.Span(enderecoEntregaPedido.Bairro).Style(titleStyleName);
+                        });
+
+                        column.Item().Text(text =>
+                        {
+                            text.Span("Rua: ").Style(titleStyle2);
+                            text.Span($"{enderecoEntregaPedido.Logradouro} : {enderecoEntregaPedido.NumeroEntrega}").Style(titleStyleName);
+                        });
+
+                        if (!string.IsNullOrWhiteSpace(enderecoEntregaPedido.Complemento))
+                        {
+                            column.Item().Text(text =>
+                            {
+                                text.Span("Complemento: ").Style(titleStyle2);
+                                text.Span(enderecoEntregaPedido.Complemento).Style(titleStyleName);
+                            });
+                        }
+                    }
                 });
 
                 if (!string.IsNullOrWhiteSpace(logo))
