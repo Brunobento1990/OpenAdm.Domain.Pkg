@@ -42,14 +42,14 @@ public class PedidoPdfService
 
                     column.Item().Text(text =>
                     {
-                        text.Span("Pedido número: ").Style(titleStyle2);
-                        text.Span(pedido.Numero.ToString()).Style(titleStyleName);
+                        text.Span("Data de emissão: ").SemiBold().FontSize(14);
+                        text.Span(pedido.DataDeCriacao.DateTimeToString());
                     });
 
                     column.Item().Text(text =>
                     {
-                        text.Span("Data de emissão: ").SemiBold().FontSize(14);
-                        text.Span(pedido.DataDeCriacao.DateTimeToString());
+                        text.Span("Pedido número: ").Style(titleStyle2);
+                        text.Span(pedido.Numero.ToString()).Style(titleStyleName);
                     });
 
                     column.Item().PaddingTop(10).Text(text =>
