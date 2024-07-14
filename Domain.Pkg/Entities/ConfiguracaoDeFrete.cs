@@ -22,6 +22,19 @@ public sealed class ConfiguracaoDeFrete : BaseEntity
         ComprimentoEmbalagem = comprimentoEmbalagem;
         Peso = peso;
     }
+    public void Update(
+        string cepOrigem,
+        string alturaEmbalagem,
+        string larguraEmbalagem,
+        string comprimentoEmbalagem,
+        decimal? peso)
+    {
+        CepOrigem = cepOrigem;
+        AlturaEmbalagem = alturaEmbalagem;
+        LarguraEmbalagem = larguraEmbalagem;
+        ComprimentoEmbalagem = comprimentoEmbalagem;
+        Peso = peso;
+    }
 
     public string CepOrigem { get; private set; }
     public string AlturaEmbalagem { get; private set; }
