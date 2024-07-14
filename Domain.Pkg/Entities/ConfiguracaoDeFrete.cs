@@ -12,17 +12,20 @@ public sealed class ConfiguracaoDeFrete : BaseEntity
         string cepOrigem,
         string alturaEmbalagem,
         string larguraEmbalagem,
-        string comprimentoEmbalagem)
+        string comprimentoEmbalagem,
+        decimal? peso)
             : base(id, dataDeCriacao, dataDeAtualizacao, numero)
     {
         CepOrigem = cepOrigem;
         AlturaEmbalagem = alturaEmbalagem;
         LarguraEmbalagem = larguraEmbalagem;
         ComprimentoEmbalagem = comprimentoEmbalagem;
+        Peso = peso;
     }
 
     public string CepOrigem { get; private set; }
     public string AlturaEmbalagem { get; private set; }
     public string LarguraEmbalagem { get; private set; }
     public string ComprimentoEmbalagem { get; private set; }
+    public decimal? Peso { get; private set; }
 }
