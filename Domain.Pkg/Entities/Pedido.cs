@@ -15,21 +15,30 @@ public sealed class Pedido : BaseEntity
         DateTime dataDeAtualizacao,
         long numero,
         StatusPedido statusPedido,
-        Guid usuarioId)
+        Guid usuarioId,
+        Guid? enderecoEntregaPedidoId,
+        Guid? pagamentoPedidoId,
+        Guid? ordemDeProducaoId)
             : base(id, dataDeCriacao, dataDeAtualizacao, numero)
     {
         ValidationGuid.ValidGuidNullAndEmpty(usuarioId);
         StatusPedido = statusPedido;
         UsuarioId = usuarioId;
+        EnderecoEntregaPedidoId = enderecoEntregaPedidoId;
+        PagamentoPedidoId = pagamentoPedidoId;
+        OrdemDeProducaoId = ordemDeProducaoId;
     }
 
     public StatusPedido StatusPedido { get; private set; }
     public Guid UsuarioId { get; private set; }
     public Usuario Usuario { get; set; } = null!;
-    public Guid? EnderecoEntregaPedidoId { get; set; }
+    public Guid? EnderecoEntregaPedidoId { get; private set; }
     public EnderecoEntregaPedido? EnderecoEntregaPedido { get; set; }
     public PagamentoPedido? PagamentoPedido { get; set; }
-    public Guid? PagamentoPedidoId { get; set; }
+    public Guid? PagamentoPedidoId { get; private set; }
+    public OrdemDeProducao? OrdemDeProducao { get; set; }
+    public Guid? OrdemDeProducaoId { get; private set; }
+
     public decimal ValorTotal { get { return ItensPedido.Sum(x => x.ValorTotal); } }
     public IList<ItensPedido> ItensPedido { get; set; } = [];
 
