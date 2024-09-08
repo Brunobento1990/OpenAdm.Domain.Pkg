@@ -26,8 +26,12 @@ public sealed class Pedido : BaseEntity
     public StatusPedido StatusPedido { get; private set; }
     public Guid UsuarioId { get; private set; }
     public Usuario Usuario { get; set; } = null!;
+    public Guid? EnderecoEntregaPedidoId { get; set; }
+    public EnderecoEntregaPedido? EnderecoEntregaPedido { get; set; }
+    public PagamentoPedido? PagamentoPedido { get; set; }
+    public Guid? PagamentoPedidoId { get; set; }
     public decimal ValorTotal { get { return ItensPedido.Sum(x => x.ValorTotal); } }
-    public IList<ItensPedido> ItensPedido { get; set; } = new List<ItensPedido>();
+    public IList<ItensPedido> ItensPedido { get; set; } = [];
 
     public void UpdateStatus(StatusPedido statusPedido)
     {
